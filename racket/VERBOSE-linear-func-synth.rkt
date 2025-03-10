@@ -3,7 +3,7 @@
 (require rosette/lib/synthax) ; the package containing `synthesis` syntax
 
 ; This enables the solver to output the constraints in SMT form
-;(output-smt (current-output-port))
+(output-smt (current-output-port))
 
 ; Define a function `f` with unknown coefficients `a` and `b`
 (define (f x)
