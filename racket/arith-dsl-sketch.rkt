@@ -20,17 +20,16 @@
 
 ; In order to do `sketching`, we need to define constraints on an
 ; unknown expression `??expr` that we want to synthesize
-(define (??expr var a b)
-  (define l (choose* var a b))       ; given a list of args, `choose*` returns a
-  (define r (choose* var a b))       ; value that can evaluate to any of them
+(define (??expr terminals)
+  (define l (apply choose* terminals))       ; given a list of args, `choose*` returns a
+  (define r (apply choose* terminals))       ; value that can evaluate to any of them
   (choose* (Add l r) (Mult l r) l))
-
 ;  For instance, `??expr (list 2 x))` could return (Add 2 x), (Mult 2 x),  2, or x
 
 
 ; Use sketching to synthesize an expression of the form `f(x) + g(x)` that add up to `10x`
 (define-symbolic x c1 c2 integer?)  
-(define sketch (Add (??expr x c1 c2) (??expr x c1 c2)))
+(define sketch (Add (??expr (list x c1 c2)) (??expr (list x c1 c2))))
 
 (define M      ; model
   (synthesize
