@@ -3,6 +3,9 @@
 (require rosette/lib/synthax) ; the package containing `synthesis` syntax
 (require rosette/lib/destruct)
 
+
+(output-smt (current-output-port))
+
 ; Let's define a simple grammar for arithmetic expressions over integers
 ; with addition,  multiplication, and squaring
 (struct Add  (left right) #:transparent)

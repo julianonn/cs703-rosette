@@ -5,9 +5,9 @@
 
 ; Let's define a simple grammar for arithmetic expressions over integers
 ; with addition,  multiplication, and squaring
-(struct Add  (left right) #:transparent)
-(struct Mult (left right) #:transparent)
-(struct Square (arg) #:transparent)
+(struct Add  (l r) #:transparent)
+(struct Mult (l r) #:transparent)
+(struct Square (l) #:transparent)
 
 (define (interpret expr)
   (destruct expr
@@ -17,13 +17,12 @@
     [_ expr]))
 
 
-; Define a function f(x) = Ax + B
-(define (f x)
-  (Add (Mult (?? integer?) x) (?? integer?)))  ; `??` means a hole in the program
+; Define a function f(x) = A * x^2 + B
+(define (f x) (Add (Mult (?? integer?) (Square x)) (?? integer?))) 
 
 ; Examples (x . y), meaning f(x) = y
 (define examples
-  `((1 . 5)  (2 . 7)  (3 . 9)  (4 . 11)))
+  `((2 . 9)  (3 . 19)))
 
 ; Synthesis constraint: f(x) must match expected output
 (define sol
